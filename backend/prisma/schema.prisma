@@ -1,0 +1,426 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model admins {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username           String               @unique
+  password_hash      String
+  full_name          String
+  is_active          Boolean              @default(true)
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  last_login_at      DateTime?            @db.Timestamptz(6)
+  employee_contracts employee_contracts[]
+  employee_payroll   employee_payroll[]
+}
+
+model categories {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique
+  lunch_box_components lunch_box_components[]
+  menu_items           menu_items[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model dough_sizes {
+  id             Int            @id @default(autoincrement())
+  dough_id       Int
+  size_inches    Decimal?       @db.Decimal(4, 1)
+  size_cm        Decimal?       @db.Decimal(4, 1)
+  piece_count    Int?           @db.SmallInt
+  price_addition Decimal        @default(0) @db.Decimal(6, 2)
+  doughs         doughs         @relation(fields: [dough_id], references: [id], onUpdate: NoAction)
+  lunch_boxes    lunch_boxes[]
+  order_pizzas   order_pizzas[]
+
+  @@index([dough_id], map: "idx_dough_sizes_dough_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model doughs {
+  id          Int           @id @default(autoincrement())
+  code        String        @unique
+  name        String
+  base_price  Decimal       @default(0) @db.Decimal(6, 2)
+  dough_sizes dough_sizes[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model employee_attendance {
+  id                                                      String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  schedule_id                                             String             @db.Uuid
+  clock_in                                                DateTime           @db.Timestamptz(6)
+  clock_out                                               DateTime?          @db.Timestamptz(6)
+  clocked_in_by                                           String?            @db.Uuid
+  clocked_out_by                                          String?            @db.Uuid
+  total_hours                                             Decimal?           @default(dbgenerated("(EXTRACT(epoch FROM (clock_out - clock_in)) / 3600.0)")) @db.Decimal
+  employees_employee_attendance_clocked_in_byToemployees  employees?         @relation("employee_attendance_clocked_in_byToemployees", fields: [clocked_in_by], references: [id], onUpdate: NoAction)
+  employees_employee_attendance_clocked_out_byToemployees employees?         @relation("employee_attendance_clocked_out_byToemployees", fields: [clocked_out_by], references: [id], onUpdate: NoAction)
+  employee_schedules                                      employee_schedules @relation(fields: [schedule_id], references: [id], onUpdate: NoAction)
+
+  @@index([clock_in], map: "idx_employee_attendance_clock_in")
+  @@index([schedule_id], map: "idx_employee_attendance_schedule_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model employee_contracts {
+  id                      String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employee_id             String    @db.Uuid
+  weekly_contracted_hours Decimal   @db.Decimal(4, 1)
+  hourly_wage_net         Decimal   @db.Decimal(6, 2)
+  start_date              DateTime  @db.Date
+  end_date                DateTime? @db.Date
+  set_by_admin_id         String?   @db.Uuid
+  employees               employees @relation(fields: [employee_id], references: [id], onUpdate: NoAction)
+  admins                  admins?   @relation(fields: [set_by_admin_id], references: [id], onUpdate: NoAction)
+
+  @@index([employee_id], map: "idx_employee_contracts_employee_id")
+  @@index([set_by_admin_id], map: "idx_employee_contracts_set_by_admin_id")
+  @@index([start_date], map: "idx_employee_contracts_start_date")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model employee_payroll {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employee_id        String    @db.Uuid
+  period_start       DateTime  @db.Date
+  period_end         DateTime  @db.Date
+  total_hours        Decimal   @db.Decimal(6, 2)
+  hourly_wage_net    Decimal   @db.Decimal(6, 2)
+  net_salary         Decimal?  @default(dbgenerated("(total_hours * hourly_wage_net)")) @db.Decimal(8, 2)
+  edited_by_admin_id String?   @db.Uuid
+  updated_at         DateTime  @default(now()) @db.Timestamptz(6)
+  admins             admins?   @relation(fields: [edited_by_admin_id], references: [id], onUpdate: NoAction)
+  employees          employees @relation(fields: [employee_id], references: [id], onUpdate: NoAction)
+
+  @@index([edited_by_admin_id], map: "idx_employee_payroll_edited_by_admin_id")
+  @@index([employee_id], map: "idx_employee_payroll_employee_id")
+  @@index([period_start, period_end], map: "idx_employee_payroll_period")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model employee_schedules {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employee_id         String                @db.Uuid
+  pizzeria_id         Int
+  shift_date          DateTime              @db.Date
+  day_of_week         Int?                  @default(dbgenerated("(EXTRACT(dow FROM shift_date))::smallint")) @db.SmallInt
+  start_time          DateTime              @db.Time(6)
+  end_time            DateTime              @db.Time(6)
+  employee_attendance employee_attendance[]
+  employees           employees             @relation(fields: [employee_id], references: [id], onUpdate: NoAction)
+  pizzeria            pizzeria              @relation(fields: [pizzeria_id], references: [id], onUpdate: NoAction)
+
+  @@index([employee_id], map: "idx_employee_schedules_employee_id")
+  @@index([pizzeria_id, shift_date], map: "idx_employee_schedules_pizzeria_date")
+  @@index([pizzeria_id], map: "idx_employee_schedules_pizzeria_id")
+  @@index([shift_date], map: "idx_employee_schedules_shift_date")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model employees {
+  id                                                                String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employee_serial_number                                            String                @unique
+  pizzeria_id                                                       Int?
+  role_id                                                           Int
+  full_name                                                         String
+  phone                                                             String?
+  email                                                             String?
+  hire_date                                                         DateTime?             @db.Date
+  termination_date                                                  DateTime?             @db.Date
+  employment_status                                                 String                @default("ACTIVE")
+  is_deleted                                                        Boolean               @default(false)
+  deleted_at                                                        DateTime?             @db.Timestamptz(6)
+  employee_attendance_employee_attendance_clocked_in_byToemployees  employee_attendance[] @relation("employee_attendance_clocked_in_byToemployees")
+  employee_attendance_employee_attendance_clocked_out_byToemployees employee_attendance[] @relation("employee_attendance_clocked_out_byToemployees")
+  employee_contracts                                                employee_contracts[]
+  employee_payroll                                                  employee_payroll[]
+  employee_schedules                                                employee_schedules[]
+  pizzeria                                                          pizzeria?             @relation(fields: [pizzeria_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  roles                                                             roles                 @relation(fields: [role_id], references: [id], onUpdate: NoAction)
+  inventory_checks                                                  inventory_checks[]
+  orders                                                            orders[]
+
+  @@index([employment_status], map: "idx_employees_employment_status")
+  @@index([pizzeria_id], map: "idx_employees_pizzeria_id")
+  @@index([role_id], map: "idx_employees_role_id")
+}
+
+model ingredient_categories {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  ingredients ingredients[]
+}
+
+model ingredient_usage_contexts {
+  ingredient_id    Int
+  usage_context_id Int
+  ingredients      ingredients    @relation(fields: [ingredient_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  usage_contexts   usage_contexts @relation(fields: [usage_context_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([ingredient_id, usage_context_id])
+  @@index([usage_context_id], map: "idx_ingredient_usage_contexts_usage_context_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ingredients {
+  id                         Int                          @id @default(autoincrement())
+  ingredient_category_id     Int?
+  code                       String                       @unique
+  name                       String
+  price                      Decimal                      @default(0) @db.Decimal(6, 2)
+  ingredient_usage_contexts  ingredient_usage_contexts[]
+  ingredient_categories      ingredient_categories?       @relation(fields: [ingredient_category_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  inventory_check_items      inventory_check_items[]
+  order_lunch_box_items      order_lunch_box_items[]
+  order_pizza_customizations order_pizza_customizations[]
+  recipe_items               recipe_items[]
+
+  @@index([ingredient_category_id], map: "idx_ingredients_category_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model inventory_check_items {
+  id                 Int              @id @default(autoincrement())
+  inventory_check_id Int
+  ingredient_id      Int
+  expected_quantity  Decimal          @db.Decimal(8, 2)
+  actual_quantity    Decimal          @db.Decimal(8, 2)
+  discrepancy        Decimal?         @default(dbgenerated("(actual_quantity - expected_quantity)")) @db.Decimal(8, 2)
+  ingredients        ingredients      @relation(fields: [ingredient_id], references: [id], onUpdate: NoAction)
+  inventory_checks   inventory_checks @relation(fields: [inventory_check_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([ingredient_id], map: "idx_inventory_check_items_ingredient_id")
+  @@index([inventory_check_id], map: "idx_inventory_check_items_inventory_check_id")
+}
+
+model inventory_checks {
+  id                    Int                     @id @default(autoincrement())
+  pizzeria_id           Int
+  employee_id           String?                 @db.Uuid
+  checked_at            DateTime                @default(now()) @db.Timestamptz(6)
+  inventory_check_items inventory_check_items[]
+  employees             employees?              @relation(fields: [employee_id], references: [id], onUpdate: NoAction)
+  pizzeria              pizzeria                @relation(fields: [pizzeria_id], references: [id], onUpdate: NoAction)
+
+  @@index([checked_at], map: "idx_inventory_checks_checked_at")
+  @@index([employee_id], map: "idx_inventory_checks_employee_id")
+  @@index([pizzeria_id], map: "idx_inventory_checks_pizzeria_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model lunch_box_components {
+  id                    Int                     @id @default(autoincrement())
+  lunch_box_id          Int
+  category_id           Int
+  quantity_grams        Decimal                 @db.Decimal(6, 1)
+  categories            categories              @relation(fields: [category_id], references: [id], onUpdate: NoAction)
+  lunch_boxes           lunch_boxes             @relation(fields: [lunch_box_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  order_lunch_box_items order_lunch_box_items[]
+
+  @@index([category_id], map: "idx_lunch_box_components_category_id")
+  @@index([lunch_box_id], map: "idx_lunch_box_components_lunch_box_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model lunch_boxes {
+  id                   Int                    @id @default(autoincrement())
+  menu_item_id         Int
+  dough_size_id        Int
+  available_from       DateTime               @default(dbgenerated("'11:00:00'::time without time zone")) @db.Time(6)
+  available_to         DateTime               @default(dbgenerated("'14:00:00'::time without time zone")) @db.Time(6)
+  lunch_box_components lunch_box_components[]
+  dough_sizes          dough_sizes            @relation(fields: [dough_size_id], references: [id], onUpdate: NoAction)
+  menu_items           menu_items             @relation(fields: [menu_item_id], references: [id], onUpdate: NoAction)
+
+  @@index([dough_size_id], map: "idx_lunch_boxes_dough_size_id")
+  @@index([menu_item_id], map: "idx_lunch_boxes_menu_item_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model menu_items {
+  id                                                       Int                     @id @default(autoincrement())
+  category_id                                              Int
+  code                                                     String                  @unique
+  name                                                     String
+  base_price                                               Decimal?                @db.Decimal(6, 2)
+  is_active                                                Boolean                 @default(true)
+  lunch_boxes                                              lunch_boxes[]
+  categories                                               categories              @relation(fields: [category_id], references: [id], onUpdate: NoAction)
+  order_items                                              order_items[]
+  order_lunch_box_items                                    order_lunch_box_items[]
+  order_pizzas_order_pizzas_half1_menu_item_idTomenu_items order_pizzas[]          @relation("order_pizzas_half1_menu_item_idTomenu_items")
+  order_pizzas_order_pizzas_half2_menu_item_idTomenu_items order_pizzas[]          @relation("order_pizzas_half2_menu_item_idTomenu_items")
+  promotion_items                                          promotion_items[]
+  recipe_items                                             recipe_items[]
+
+  @@index([category_id], map: "idx_menu_items_category_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model order_items {
+  id                    Int                     @id @default(autoincrement())
+  order_id              String                  @db.Uuid
+  menu_item_id          Int
+  quantity              Int                     @default(1) @db.SmallInt
+  unit_price            Decimal                 @db.Decimal(6, 2)
+  menu_items            menu_items              @relation(fields: [menu_item_id], references: [id], onUpdate: NoAction)
+  orders                orders                  @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  order_lunch_box_items order_lunch_box_items[]
+
+  @@index([menu_item_id], map: "idx_order_items_menu_item_id")
+  @@index([order_id], map: "idx_order_items_order_id")
+}
+
+model order_lunch_box_items {
+  id                     Int                  @id @default(autoincrement())
+  order_item_id          Int
+  lunch_box_component_id Int
+  menu_item_id           Int?
+  ingredient_id          Int?
+  ingredients            ingredients?         @relation(fields: [ingredient_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  lunch_box_components   lunch_box_components @relation(fields: [lunch_box_component_id], references: [id], onUpdate: NoAction)
+  menu_items             menu_items?          @relation(fields: [menu_item_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  order_items            order_items          @relation(fields: [order_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([lunch_box_component_id], map: "idx_order_lunch_box_items_component_id")
+  @@index([order_item_id], map: "idx_order_lunch_box_items_order_item_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model order_pizza_customizations {
+  id             Int          @id @default(autoincrement())
+  order_pizza_id Int
+  half           Int          @db.SmallInt
+  ingredient_id  Int
+  action         String
+  ingredients    ingredients  @relation(fields: [ingredient_id], references: [id], onUpdate: NoAction)
+  order_pizzas   order_pizzas @relation(fields: [order_pizza_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([order_pizza_id, half, ingredient_id, action], map: "unique_pizza_customization")
+  @@index([ingredient_id], map: "idx_order_pizza_customizations_ingredient_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model order_pizzas {
+  id                                                     Int                          @id @default(autoincrement())
+  order_id                                               String                       @db.Uuid
+  half1_menu_item_id                                     Int
+  half2_menu_item_id                                     Int?
+  dough_size_id                                          Int
+  quantity                                               Int                          @default(1) @db.SmallInt
+  unit_price                                             Decimal                      @db.Decimal(6, 2)
+  order_pizza_customizations                             order_pizza_customizations[]
+  dough_sizes                                            dough_sizes                  @relation(fields: [dough_size_id], references: [id], onUpdate: NoAction)
+  menu_items_order_pizzas_half1_menu_item_idTomenu_items menu_items                   @relation("order_pizzas_half1_menu_item_idTomenu_items", fields: [half1_menu_item_id], references: [id], onUpdate: NoAction)
+  menu_items_order_pizzas_half2_menu_item_idTomenu_items menu_items?                  @relation("order_pizzas_half2_menu_item_idTomenu_items", fields: [half2_menu_item_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  orders                                                 orders                       @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([dough_size_id], map: "idx_order_pizzas_dough_size_id")
+  @@index([half1_menu_item_id], map: "idx_order_pizzas_half1_menu_item_id")
+  @@index([half2_menu_item_id], map: "idx_order_pizzas_half2_menu_item_id")
+  @@index([order_id], map: "idx_order_pizzas_order_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model orders {
+  id                 String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id            String?                  @db.Uuid
+  employee_id        String?                  @db.Uuid
+  pizzeria_id        Int?
+  promotion_id       Int?
+  status             String                   @default("ACCEPTED")
+  channel            String
+  payment_method     String
+  fulfillment_type   String
+  delivery_address   String?
+  created_at         DateTime                 @default(now()) @db.Timestamptz(6)
+  completed_at       DateTime?                @db.Timestamptz(6)
+  execution_duration Unsupported("interval")? @default(dbgenerated("(completed_at - created_at)"))
+  order_items        order_items[]
+  order_pizzas       order_pizzas[]
+  employees          employees?               @relation(fields: [employee_id], references: [id], onUpdate: NoAction)
+  pizzeria           pizzeria?                @relation(fields: [pizzeria_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  promotions         promotions?              @relation(fields: [promotion_id], references: [id], onUpdate: NoAction)
+  users              users?                   @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+
+  @@index([created_at], map: "idx_orders_created_at")
+  @@index([employee_id], map: "idx_orders_employee_id")
+  @@index([pizzeria_id], map: "idx_orders_pizzeria_id")
+  @@index([promotion_id], map: "idx_orders_promotion_id")
+  @@index([status], map: "idx_orders_status")
+  @@index([user_id], map: "idx_orders_user_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model pizzeria {
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  address            String?
+  phone              String?
+  opens_at           DateTime?            @db.Time(6)
+  closes_at          DateTime?            @db.Time(6)
+  opened_date        DateTime?            @db.Date
+  status             String               @default("ACTIVE")
+  employee_schedules employee_schedules[]
+  employees          employees[]
+  inventory_checks   inventory_checks[]
+  orders             orders[]
+}
+
+model promotion_items {
+  promotion_id Int
+  menu_item_id Int
+  menu_items   menu_items @relation(fields: [menu_item_id], references: [id], onUpdate: NoAction)
+  promotions   promotions @relation(fields: [promotion_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([promotion_id, menu_item_id])
+  @@index([menu_item_id], map: "idx_promotion_items_menu_item_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model promotions {
+  id               Int               @id @default(autoincrement())
+  code             String            @unique
+  name             String
+  percent_discount Decimal           @db.Decimal(4, 1)
+  is_active        Boolean           @default(true)
+  orders           orders[]
+  promotion_items  promotion_items[]
+}
+
+model recipe_items {
+  menu_item_id  Int
+  ingredient_id Int
+  ingredients   ingredients @relation(fields: [ingredient_id], references: [id], onUpdate: NoAction)
+  menu_items    menu_items  @relation(fields: [menu_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([menu_item_id, ingredient_id])
+  @@index([ingredient_id], map: "idx_recipe_items_ingredient_id")
+}
+
+model roles {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  employees employees[]
+}
+
+model usage_contexts {
+  id                        Int                         @id @default(autoincrement())
+  name                      String                      @unique
+  ingredient_usage_contexts ingredient_usage_contexts[]
+}
+
+model users {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  full_name  String
+  phone      String?  @unique
+  email      String?  @unique
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  orders     orders[]
+}
