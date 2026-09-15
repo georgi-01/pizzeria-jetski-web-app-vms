@@ -49,6 +49,7 @@ export type EmployeesMinAggregateOutputType = {
   employment_status: string | null
   is_deleted: boolean | null
   deleted_at: Date | null
+  password_hash: string | null
 }
 
 export type EmployeesMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type EmployeesMaxAggregateOutputType = {
   employment_status: string | null
   is_deleted: boolean | null
   deleted_at: Date | null
+  password_hash: string | null
 }
 
 export type EmployeesCountAggregateOutputType = {
@@ -79,6 +81,7 @@ export type EmployeesCountAggregateOutputType = {
   employment_status: number
   is_deleted: number
   deleted_at: number
+  password_hash: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type EmployeesMinAggregateInputType = {
   employment_status?: true
   is_deleted?: true
   deleted_at?: true
+  password_hash?: true
 }
 
 export type EmployeesMaxAggregateInputType = {
@@ -121,6 +125,7 @@ export type EmployeesMaxAggregateInputType = {
   employment_status?: true
   is_deleted?: true
   deleted_at?: true
+  password_hash?: true
 }
 
 export type EmployeesCountAggregateInputType = {
@@ -136,6 +141,7 @@ export type EmployeesCountAggregateInputType = {
   employment_status?: true
   is_deleted?: true
   deleted_at?: true
+  password_hash?: true
   _all?: true
 }
 
@@ -238,6 +244,7 @@ export type EmployeesGroupByOutputType = {
   employment_status: string
   is_deleted: boolean
   deleted_at: Date | null
+  password_hash: string | null
   _count: EmployeesCountAggregateOutputType | null
   _avg: EmployeesAvgAggregateOutputType | null
   _sum: EmployeesSumAggregateOutputType | null
@@ -276,6 +283,7 @@ export type employeesWhereInput = {
   employment_status?: Prisma.StringFilter<"employees"> | string
   is_deleted?: Prisma.BoolFilter<"employees"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"employees"> | Date | string | null
+  password_hash?: Prisma.StringNullableFilter<"employees"> | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.Employee_attendanceListRelationFilter
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.Employee_attendanceListRelationFilter
   employee_contracts?: Prisma.Employee_contractsListRelationFilter
@@ -300,6 +308,7 @@ export type employeesOrderByWithRelationInput = {
   employment_status?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  password_hash?: Prisma.SortOrderInput | Prisma.SortOrder
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceOrderByRelationAggregateInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceOrderByRelationAggregateInput
   employee_contracts?: Prisma.employee_contractsOrderByRelationAggregateInput
@@ -327,6 +336,7 @@ export type employeesWhereUniqueInput = Prisma.AtLeast<{
   employment_status?: Prisma.StringFilter<"employees"> | string
   is_deleted?: Prisma.BoolFilter<"employees"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"employees"> | Date | string | null
+  password_hash?: Prisma.StringNullableFilter<"employees"> | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.Employee_attendanceListRelationFilter
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.Employee_attendanceListRelationFilter
   employee_contracts?: Prisma.Employee_contractsListRelationFilter
@@ -351,6 +361,7 @@ export type employeesOrderByWithAggregationInput = {
   employment_status?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  password_hash?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.employeesCountOrderByAggregateInput
   _avg?: Prisma.employeesAvgOrderByAggregateInput
   _max?: Prisma.employeesMaxOrderByAggregateInput
@@ -374,6 +385,7 @@ export type employeesScalarWhereWithAggregatesInput = {
   employment_status?: Prisma.StringWithAggregatesFilter<"employees"> | string
   is_deleted?: Prisma.BoolWithAggregatesFilter<"employees"> | boolean
   deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"employees"> | Date | string | null
+  password_hash?: Prisma.StringNullableWithAggregatesFilter<"employees"> | string | null
 }
 
 export type employeesCreateInput = {
@@ -387,6 +399,7 @@ export type employeesCreateInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -411,6 +424,7 @@ export type employeesUncheckedCreateInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -431,6 +445,7 @@ export type employeesUpdateInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -455,6 +470,7 @@ export type employeesUncheckedUpdateInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -477,6 +493,7 @@ export type employeesCreateManyInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
 }
 
 export type employeesUpdateManyMutationInput = {
@@ -490,6 +507,7 @@ export type employeesUpdateManyMutationInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type employeesUncheckedUpdateManyInput = {
@@ -505,6 +523,7 @@ export type employeesUncheckedUpdateManyInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type EmployeesNullableScalarRelationFilter = {
@@ -530,6 +549,7 @@ export type employeesCountOrderByAggregateInput = {
   employment_status?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
 }
 
 export type employeesAvgOrderByAggregateInput = {
@@ -550,6 +570,7 @@ export type employeesMaxOrderByAggregateInput = {
   employment_status?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
 }
 
 export type employeesMinOrderByAggregateInput = {
@@ -565,6 +586,7 @@ export type employeesMinOrderByAggregateInput = {
   employment_status?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   deleted_at?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
 }
 
 export type employeesSumOrderByAggregateInput = {
@@ -783,6 +805,7 @@ export type employeesCreateWithoutEmployee_attendance_employee_attendance_clocke
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
   employee_payroll?: Prisma.employee_payrollCreateNestedManyWithoutEmployeesInput
@@ -806,6 +829,7 @@ export type employeesUncheckedCreateWithoutEmployee_attendance_employee_attendan
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
   employee_payroll?: Prisma.employee_payrollUncheckedCreateNestedManyWithoutEmployeesInput
@@ -830,6 +854,7 @@ export type employeesCreateWithoutEmployee_attendance_employee_attendance_clocke
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
   employee_payroll?: Prisma.employee_payrollCreateNestedManyWithoutEmployeesInput
@@ -853,6 +878,7 @@ export type employeesUncheckedCreateWithoutEmployee_attendance_employee_attendan
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
   employee_payroll?: Prisma.employee_payrollUncheckedCreateNestedManyWithoutEmployeesInput
@@ -888,6 +914,7 @@ export type employeesUpdateWithoutEmployee_attendance_employee_attendance_clocke
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUpdateManyWithoutEmployeesNestedInput
@@ -911,6 +938,7 @@ export type employeesUncheckedUpdateWithoutEmployee_attendance_employee_attendan
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -941,6 +969,7 @@ export type employeesUpdateWithoutEmployee_attendance_employee_attendance_clocke
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUpdateManyWithoutEmployeesNestedInput
@@ -964,6 +993,7 @@ export type employeesUncheckedUpdateWithoutEmployee_attendance_employee_attendan
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -983,6 +1013,7 @@ export type employeesCreateWithoutEmployee_contractsInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_payroll?: Prisma.employee_payrollCreateNestedManyWithoutEmployeesInput
@@ -1006,6 +1037,7 @@ export type employeesUncheckedCreateWithoutEmployee_contractsInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_payroll?: Prisma.employee_payrollUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1041,6 +1073,7 @@ export type employeesUpdateWithoutEmployee_contractsInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUpdateManyWithoutEmployeesNestedInput
@@ -1064,6 +1097,7 @@ export type employeesUncheckedUpdateWithoutEmployee_contractsInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_payroll?: Prisma.employee_payrollUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1083,6 +1117,7 @@ export type employeesCreateWithoutEmployee_payrollInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1106,6 +1141,7 @@ export type employeesUncheckedCreateWithoutEmployee_payrollInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1141,6 +1177,7 @@ export type employeesUpdateWithoutEmployee_payrollInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1164,6 +1201,7 @@ export type employeesUncheckedUpdateWithoutEmployee_payrollInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1183,6 +1221,7 @@ export type employeesCreateWithoutEmployee_schedulesInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1206,6 +1245,7 @@ export type employeesUncheckedCreateWithoutEmployee_schedulesInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1241,6 +1281,7 @@ export type employeesUpdateWithoutEmployee_schedulesInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1264,6 +1305,7 @@ export type employeesUncheckedUpdateWithoutEmployee_schedulesInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1283,6 +1325,7 @@ export type employeesCreateWithoutInventory_checksInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1306,6 +1349,7 @@ export type employeesUncheckedCreateWithoutInventory_checksInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1341,6 +1385,7 @@ export type employeesUpdateWithoutInventory_checksInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1364,6 +1409,7 @@ export type employeesUncheckedUpdateWithoutInventory_checksInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1383,6 +1429,7 @@ export type employeesCreateWithoutOrdersInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1406,6 +1453,7 @@ export type employeesUncheckedCreateWithoutOrdersInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1441,6 +1489,7 @@ export type employeesUpdateWithoutOrdersInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1464,6 +1513,7 @@ export type employeesUncheckedUpdateWithoutOrdersInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1483,6 +1533,7 @@ export type employeesCreateWithoutPizzeriaInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1505,6 +1556,7 @@ export type employeesUncheckedCreateWithoutPizzeriaInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1556,6 +1608,7 @@ export type employeesScalarWhereInput = {
   employment_status?: Prisma.StringFilter<"employees"> | string
   is_deleted?: Prisma.BoolFilter<"employees"> | boolean
   deleted_at?: Prisma.DateTimeNullableFilter<"employees"> | Date | string | null
+  password_hash?: Prisma.StringNullableFilter<"employees"> | string | null
 }
 
 export type employeesCreateWithoutRolesInput = {
@@ -1569,6 +1622,7 @@ export type employeesCreateWithoutRolesInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsCreateNestedManyWithoutEmployeesInput
@@ -1591,6 +1645,7 @@ export type employeesUncheckedCreateWithoutRolesInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedCreateNestedManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesInput
   employee_contracts?: Prisma.employee_contractsUncheckedCreateNestedManyWithoutEmployeesInput
@@ -1638,6 +1693,7 @@ export type employeesCreateManyPizzeriaInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
 }
 
 export type employeesUpdateWithoutPizzeriaInput = {
@@ -1651,6 +1707,7 @@ export type employeesUpdateWithoutPizzeriaInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1673,6 +1730,7 @@ export type employeesUncheckedUpdateWithoutPizzeriaInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1694,6 +1752,7 @@ export type employeesUncheckedUpdateManyWithoutPizzeriaInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type employeesCreateManyRolesInput = {
@@ -1708,6 +1767,7 @@ export type employeesCreateManyRolesInput = {
   employment_status?: string
   is_deleted?: boolean
   deleted_at?: Date | string | null
+  password_hash?: string | null
 }
 
 export type employeesUpdateWithoutRolesInput = {
@@ -1721,6 +1781,7 @@ export type employeesUpdateWithoutRolesInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUpdateManyWithoutEmployeesNestedInput
@@ -1743,6 +1804,7 @@ export type employeesUncheckedUpdateWithoutRolesInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employee_attendance_employee_attendance_clocked_in_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_in_byToemployeesNestedInput
   employee_attendance_employee_attendance_clocked_out_byToemployees?: Prisma.employee_attendanceUncheckedUpdateManyWithoutEmployees_employee_attendance_clocked_out_byToemployeesNestedInput
   employee_contracts?: Prisma.employee_contractsUncheckedUpdateManyWithoutEmployeesNestedInput
@@ -1764,6 +1826,7 @@ export type employeesUncheckedUpdateManyWithoutRolesInput = {
   employment_status?: Prisma.StringFieldUpdateOperationsInput | string
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1864,6 +1927,7 @@ export type employeesSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   employment_status?: boolean
   is_deleted?: boolean
   deleted_at?: boolean
+  password_hash?: boolean
   employee_attendance_employee_attendance_clocked_in_byToemployees?: boolean | Prisma.employees$employee_attendance_employee_attendance_clocked_in_byToemployeesArgs<ExtArgs>
   employee_attendance_employee_attendance_clocked_out_byToemployees?: boolean | Prisma.employees$employee_attendance_employee_attendance_clocked_out_byToemployeesArgs<ExtArgs>
   employee_contracts?: boolean | Prisma.employees$employee_contractsArgs<ExtArgs>
@@ -1889,6 +1953,7 @@ export type employeesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   employment_status?: boolean
   is_deleted?: boolean
   deleted_at?: boolean
+  password_hash?: boolean
   pizzeria?: boolean | Prisma.employees$pizzeriaArgs<ExtArgs>
   roles?: boolean | Prisma.rolesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employees"]>
@@ -1906,6 +1971,7 @@ export type employeesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   employment_status?: boolean
   is_deleted?: boolean
   deleted_at?: boolean
+  password_hash?: boolean
   pizzeria?: boolean | Prisma.employees$pizzeriaArgs<ExtArgs>
   roles?: boolean | Prisma.rolesDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employees"]>
@@ -1923,9 +1989,10 @@ export type employeesSelectScalar = {
   employment_status?: boolean
   is_deleted?: boolean
   deleted_at?: boolean
+  password_hash?: boolean
 }
 
-export type employeesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employee_serial_number" | "pizzeria_id" | "role_id" | "full_name" | "phone" | "email" | "hire_date" | "termination_date" | "employment_status" | "is_deleted" | "deleted_at", ExtArgs["result"]["employees"]>
+export type employeesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employee_serial_number" | "pizzeria_id" | "role_id" | "full_name" | "phone" | "email" | "hire_date" | "termination_date" | "employment_status" | "is_deleted" | "deleted_at" | "password_hash", ExtArgs["result"]["employees"]>
 export type employeesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   employee_attendance_employee_attendance_clocked_in_byToemployees?: boolean | Prisma.employees$employee_attendance_employee_attendance_clocked_in_byToemployeesArgs<ExtArgs>
   employee_attendance_employee_attendance_clocked_out_byToemployees?: boolean | Prisma.employees$employee_attendance_employee_attendance_clocked_out_byToemployeesArgs<ExtArgs>
@@ -1973,6 +2040,7 @@ export type $employeesPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     employment_status: string
     is_deleted: boolean
     deleted_at: Date | null
+    password_hash: string | null
   }, ExtArgs["result"]["employees"]>
   composites: {}
 }
@@ -2417,6 +2485,7 @@ export interface employeesFieldRefs {
   readonly employment_status: Prisma.FieldRef<"employees", 'String'>
   readonly is_deleted: Prisma.FieldRef<"employees", 'Boolean'>
   readonly deleted_at: Prisma.FieldRef<"employees", 'DateTime'>
+  readonly password_hash: Prisma.FieldRef<"employees", 'String'>
 }
     
 

@@ -184,3 +184,8 @@ export type usage_contexts = Prisma.usage_contextsModel
  * 
  */
 export type users = Prisma.usersModel
+/**
+ * Model database_initialization
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ */
+export type database_initialization = Prisma.database_initializationModel

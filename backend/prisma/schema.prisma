@@ -136,6 +136,7 @@ model employees {
   employment_status                                                 String                @default("ACTIVE")
   is_deleted                                                        Boolean               @default(false)
   deleted_at                                                        DateTime?             @db.Timestamptz(6)
+  password_hash                                                     String?
   employee_attendance_employee_attendance_clocked_in_byToemployees  employee_attendance[] @relation("employee_attendance_clocked_in_byToemployees")
   employee_attendance_employee_attendance_clocked_out_byToemployees employee_attendance[] @relation("employee_attendance_clocked_out_byToemployees")
   employee_contracts                                                employee_contracts[]
@@ -417,10 +418,20 @@ model usage_contexts {
 }
 
 model users {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  full_name  String
-  phone      String?  @unique
-  email      String?  @unique
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  orders     orders[]
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  full_name     String
+  phone         String?  @unique
+  email         String?  @unique
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  password_hash String?
+  orders        orders[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model database_initialization {
+  id             Boolean   @id @default(true)
+  seed_version   Int
+  initialized    Boolean   @default(false)
+  initialized_at DateTime? @db.Timestamptz(6)
+  environment    String
 }

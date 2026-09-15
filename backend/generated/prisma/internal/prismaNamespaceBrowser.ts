@@ -79,7 +79,8 @@ export const ModelName = {
   recipe_items: 'recipe_items',
   roles: 'roles',
   usage_contexts: 'usage_contexts',
-  users: 'users'
+  users: 'users',
+  database_initialization: 'database_initialization'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -207,7 +208,8 @@ export const EmployeesScalarFieldEnum = {
   termination_date: 'termination_date',
   employment_status: 'employment_status',
   is_deleted: 'is_deleted',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  password_hash: 'password_hash'
 } as const
 
 export type EmployeesScalarFieldEnum = (typeof EmployeesScalarFieldEnum)[keyof typeof EmployeesScalarFieldEnum]
@@ -421,10 +423,22 @@ export const UsersScalarFieldEnum = {
   full_name: 'full_name',
   phone: 'phone',
   email: 'email',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  password_hash: 'password_hash'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Database_initializationScalarFieldEnum = {
+  id: 'id',
+  seed_version: 'seed_version',
+  initialized: 'initialized',
+  initialized_at: 'initialized_at',
+  environment: 'environment'
+} as const
+
+export type Database_initializationScalarFieldEnum = (typeof Database_initializationScalarFieldEnum)[keyof typeof Database_initializationScalarFieldEnum]
 
 
 export const SortOrder = {

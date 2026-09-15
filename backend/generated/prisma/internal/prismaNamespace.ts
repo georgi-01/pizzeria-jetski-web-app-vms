@@ -425,7 +425,8 @@ export const ModelName = {
   recipe_items: 'recipe_items',
   roles: 'roles',
   usage_contexts: 'usage_contexts',
-  users: 'users'
+  users: 'users',
+  database_initialization: 'database_initialization'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -441,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "admins" | "categories" | "dough_sizes" | "doughs" | "employee_attendance" | "employee_contracts" | "employee_payroll" | "employee_schedules" | "employees" | "ingredient_categories" | "ingredient_usage_contexts" | "ingredients" | "inventory_check_items" | "inventory_checks" | "lunch_box_components" | "lunch_boxes" | "menu_items" | "order_items" | "order_lunch_box_items" | "order_pizza_customizations" | "order_pizzas" | "orders" | "pizzeria" | "promotion_items" | "promotions" | "recipe_items" | "roles" | "usage_contexts" | "users"
+    modelProps: "admins" | "categories" | "dough_sizes" | "doughs" | "employee_attendance" | "employee_contracts" | "employee_payroll" | "employee_schedules" | "employees" | "ingredient_categories" | "ingredient_usage_contexts" | "ingredients" | "inventory_check_items" | "inventory_checks" | "lunch_box_components" | "lunch_boxes" | "menu_items" | "order_items" | "order_lunch_box_items" | "order_pizza_customizations" | "order_pizzas" | "orders" | "pizzeria" | "promotion_items" | "promotions" | "recipe_items" | "roles" | "usage_contexts" | "users" | "database_initialization"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2591,6 +2592,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    database_initialization: {
+      payload: Prisma.$database_initializationPayload<ExtArgs>
+      fields: Prisma.database_initializationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.database_initializationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.database_initializationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        findFirst: {
+          args: Prisma.database_initializationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.database_initializationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        findMany: {
+          args: Prisma.database_initializationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>[]
+        }
+        create: {
+          args: Prisma.database_initializationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        createMany: {
+          args: Prisma.database_initializationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.database_initializationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>[]
+        }
+        delete: {
+          args: Prisma.database_initializationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        update: {
+          args: Prisma.database_initializationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        deleteMany: {
+          args: Prisma.database_initializationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.database_initializationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.database_initializationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>[]
+        }
+        upsert: {
+          args: Prisma.database_initializationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$database_initializationPayload>
+        }
+        aggregate: {
+          args: Prisma.Database_initializationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDatabase_initialization>
+        }
+        groupBy: {
+          args: Prisma.database_initializationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Database_initializationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.database_initializationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Database_initializationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2739,7 +2814,8 @@ export const EmployeesScalarFieldEnum = {
   termination_date: 'termination_date',
   employment_status: 'employment_status',
   is_deleted: 'is_deleted',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  password_hash: 'password_hash'
 } as const
 
 export type EmployeesScalarFieldEnum = (typeof EmployeesScalarFieldEnum)[keyof typeof EmployeesScalarFieldEnum]
@@ -2953,10 +3029,22 @@ export const UsersScalarFieldEnum = {
   full_name: 'full_name',
   phone: 'phone',
   email: 'email',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  password_hash: 'password_hash'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Database_initializationScalarFieldEnum = {
+  id: 'id',
+  seed_version: 'seed_version',
+  initialized: 'initialized',
+  initialized_at: 'initialized_at',
+  environment: 'environment'
+} as const
+
+export type Database_initializationScalarFieldEnum = (typeof Database_initializationScalarFieldEnum)[keyof typeof Database_initializationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3245,6 +3333,7 @@ export type GlobalOmitConfig = {
   roles?: Prisma.rolesOmit
   usage_contexts?: Prisma.usage_contextsOmit
   users?: Prisma.usersOmit
+  database_initialization?: Prisma.database_initializationOmit
 }
 
 /* Types for Logging */
