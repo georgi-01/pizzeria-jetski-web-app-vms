@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: var(--color-background);
+}
+
+.profile {
+  flex: 0 0 48px;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background-color: #dcecff;
+
+  color: var(--color-secondary);
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.info {
+  min-width: 0;
+  flex: 1;
+}
+
+.pizzeria {
+  overflow: hidden;
+
+  color: var(--color-background);
+
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.role {
+  margin-top: 3px;
+
+  color: var(--color-background);
+
+  font-size: 13px;
+  line-height: 1.2;
+}

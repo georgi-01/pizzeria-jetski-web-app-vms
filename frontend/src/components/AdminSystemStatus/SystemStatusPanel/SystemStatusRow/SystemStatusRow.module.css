@@ -1,0 +1,26 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.orangeDot {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    margin-right: 8px;
+}
+
+.label {
+    font-size: 14px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+.status {
+    font-size: 14px;
+    color: var(--color-good);
+}

@@ -30,6 +30,9 @@ Thumbs.db
 # NestJS / Node.js
 .nest/
 
+# Swap files
+*.swp
+
 # Local development
 .local/
 

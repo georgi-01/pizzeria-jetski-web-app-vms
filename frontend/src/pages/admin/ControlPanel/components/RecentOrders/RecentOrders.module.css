@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  height: auto;
+
+  padding: var(--page-padding-y) var(--page-padding-x);
+
+  background-color: white;
+
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-card);
+}
+
+.title {
+  color: var(--color-primary);
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.note {
+  color: var(--color-secondary);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.table-container {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  padding: 10px;
+}
+
+.table-header {
+  background-color: var(--color-primary);
+  color: var(--color-muted);
+  font-weight: bold;
+}
+.tableWrapper {
+  border-radius: var(--radius-card);
+  overflow: hidden;   /* отрязва ъглите на всичко вътре, вкл. header реда */
+}

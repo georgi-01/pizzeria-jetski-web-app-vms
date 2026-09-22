@@ -1,0 +1,27 @@
+.status-panel {
+  width: 337px;
+  height: 100%;
+
+  padding: var(--page-padding-y) var(--page-padding-x);
+
+  background-color: var(--color-primary);
+
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-card);
+}
+
+.title {
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+.subtitle {
+  color: var(--color-muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.status-panel-separator {
+  height: var(--height-25);
+  width: 100%;
+}

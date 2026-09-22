@@ -1,0 +1,23 @@
+.row-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.column-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.margin-top-15 {
+    margin-top: var(--margin-15);
+}
+
+.margin-right-15 {
+    margin-right: var(--margin-15);
+}
+
+.panel-separator {
+  height: var(--height-15);
+  width: 100%;
+}

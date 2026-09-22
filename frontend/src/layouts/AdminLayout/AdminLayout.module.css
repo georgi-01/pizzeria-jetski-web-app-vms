@@ -1,0 +1,53 @@
+.layout {
+  --color-primary: #011B56;
+  --color-secondary: #024EA6;
+  --color-accent: #EF5C0F;
+  --color-muted: #B49D8F;
+  --color-background: #E8ECF1;
+
+  --radius-card: 20px;
+  --radius-control: 12px;
+
+  --border-width: 2px;
+
+  --admin-sidebar-width: 280px;
+  --admin-content-gap: 40px;
+
+  --page-padding-x: 40px;
+  --page-padding-y: 50px;
+  
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--admin-content-gap);
+
+  padding:
+    var(--page-padding-y)
+    var(--page-padding-x);
+
+  background-color: var(--color-background);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1707px) {
+  .layout {
+    --admin-content-gap: 24px;
+    --page-padding-x: 24px;
+    --page-padding-y: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+    gap: 24px;
+
+    padding: 24px;
+  }
+}

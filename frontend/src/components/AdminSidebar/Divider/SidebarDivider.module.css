@@ -1,0 +1,10 @@
+.line {
+  width: 90%;
+  height: 1px;
+
+  margin-top: 15px;
+
+  background-color: var(--color-muted);
+
+  opacity: 0.5;
+}
