@@ -1,5 +1,5 @@
 .status-panel {
-  width: 337px;
+  min-width: 30%;
   height: 100%;
 
   padding: var(--page-padding-y) var(--page-padding-x);

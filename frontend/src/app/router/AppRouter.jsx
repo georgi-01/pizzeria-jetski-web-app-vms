@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ("Admin pages");
+import AdminLayout from "../../layouts/AdminLayout/AdminLayout";
 import ControlPanelPage from "../../pages/admin/ControlPanel/ControlPanelPage";
 import CategoriesPage from "../../pages/admin/Categories/CategoriesPage";
 import IngredientsPage from "../../pages/admin/Ingredients/IngredientsPage";
@@ -27,7 +28,7 @@ function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/controlpanel">
+        <Route path="/controlpanel" element={<AdminLayout />}>
           <Route index element={<ControlPanelPage />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="ingredients" element={<IngredientsPage />} />

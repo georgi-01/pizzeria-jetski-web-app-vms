@@ -1,14 +1,21 @@
-import AdminLayout from "../../../layouts/AdminLayout/AdminLayout";
+import AdminButton from "../../../components/AdminButton/AdminButton";
+import { useAdminHeader } from "../../../layouts/AdminLayout/AdminHeaderContext";
+import Content from "./Content";
 
-const eyebrow = "Admin Control Panel",
-  title = "Inventory",
-  subtitle = "Overview of Pizzeria Jetski inventory";
 function InventoryPage() {
-  return (
-    <AdminLayout eyebrow={eyebrow} title={title} subtitle={subtitle}>
-      <h1>Inventory</h1>
-    </AdminLayout>
-  );
+  useAdminHeader({
+    eyebrow: "Admin Control Panel",
+    title: "Inventory",
+    subtitle: "Overview of Pizzeria Jetski inventory",
+    actions: (
+      <>
+        <AdminButton>System Info</AdminButton>
+        <AdminButton>Activity Log</AdminButton>
+      </>
+    ),
+  });
+
+  return <Content />;
 }
 
 export default InventoryPage;

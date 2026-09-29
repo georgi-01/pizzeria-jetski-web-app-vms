@@ -1,14 +1,21 @@
-import AdminLayout from "../../../layouts/AdminLayout/AdminLayout";
+import AdminButton from "../../../components/AdminButton/AdminButton";
+import { useAdminHeader } from "../../../layouts/AdminLayout/AdminHeaderContext";
+import Content from "./Content";
 
-const eyebrow = "Admin Control Panel",
-  title = "Ingredients",
-  subtitle = "Overview of Pizzeria Jetski ingredients";
 function IngredientsPage() {
-  return (
-    <AdminLayout eyebrow={eyebrow} title={title} subtitle={subtitle}>
-      <h1>Ingredients</h1>
-    </AdminLayout>
-  );
+  useAdminHeader({
+    eyebrow: "Admin Control Panel",
+    title: "Ingredients",
+    subtitle: "Overview of Pizzeria Jetski ingredients",
+    actions: (
+      <>
+        <AdminButton>System Info</AdminButton>
+        <AdminButton>Activity Log</AdminButton>
+      </>
+    ),
+  });
+
+  return <Content />;
 }
 
 export default IngredientsPage;

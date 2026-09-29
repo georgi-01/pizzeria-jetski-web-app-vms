@@ -30,9 +30,12 @@
   background-color: var(--color-background);
 }
 
-.content {
-  flex: 1;
-  min-width: 0;
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+
 }
 
 @media (max-width: 1707px) {

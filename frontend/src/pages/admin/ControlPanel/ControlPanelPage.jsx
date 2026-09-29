@@ -1,16 +1,22 @@
-import AdminLayout from "../../../layouts/AdminLayout/AdminLayout";
+// pages/admin/ControlPanel/ControlPanelPage.jsx
+import AdminButton from "../../../components/AdminButton/AdminButton";
+import { useAdminHeader } from "../../../layouts/AdminLayout/AdminHeaderContext";
 import Content from "./Content";
 
-const eyebrow = "Admin Control Panel",
-  title = "Dashboard",
-  subtitle = "Overview of Pizzeria Jetski operations";
 function ControlPanelPage() {
-  
-  return (
-    <AdminLayout eyebrow={eyebrow} title={title} subtitle={subtitle}>
-      <Content></Content>
-    </AdminLayout>
-  );
+  useAdminHeader({
+    eyebrow: "Admin Control Panel",
+    title: "Dashboard",
+    subtitle: "Overview of Pizzeria Jetski operations",
+    actions: (
+      <>
+        <AdminButton>System Info</AdminButton>
+        <AdminButton>Activity Log</AdminButton>
+      </>
+    ),
+  });
+
+  return <Content />;
 }
 
 export default ControlPanelPage;

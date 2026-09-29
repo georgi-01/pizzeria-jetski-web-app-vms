@@ -53,3 +53,21 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.badge {
+  margin-left: auto;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
