@@ -6,11 +6,17 @@ import SidebarNavLink from "./NavLink/SidebarNavLink";
 import SidebarDivider from "./Divider/SidebarDivider";
 import SystemLink from "./SystemLink/SystemLink";
 
-import { useSidebarCounts } from "../../hooks/useNavSidebarCounts";
+import useFetch from "../../hooks/useFetch";
+import { getCategoriesCount } from "../../services/admin/categories.service";
 
 function AdminSidebar() {
   const pathname = window.location.pathname;
-  const counts = useSidebarCounts();
+
+  const {
+    data: categoriesCount,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useFetch(getCategoriesCount);
 
   return (
     <aside className={styles.container}>
@@ -20,11 +26,12 @@ function AdminSidebar() {
           <SidebarSearch />
         </div>
         <nav className={styles.navigation}>
-          <SidebarNavLink to="/controlpanel/categories" label="Categories" count={counts.orders}/>
           <SidebarNavLink
-            to="/controlpanel/ingredients"
-            label="Ingredients"
+            to="/controlpanel/categories"
+            label="Categories"
+            count={categoriesCount?.count ?? 0}
           />
+          <SidebarNavLink to="/controlpanel/ingredients" label="Ingredients" />
           <SidebarNavLink to="/controlpanel/inventory" label="Inventory" />
           <SidebarNavLink to="/controlpanel/menu" label="Menu" />
           <SidebarNavLink to="/controlpanel/orders" label="Orders" />
@@ -32,13 +39,13 @@ function AdminSidebar() {
           <SidebarNavLink to="/controlpanel/employees" label="Employees" />
         </nav>
         <SidebarDivider />
-        
-        {pathname !== "/controlpanel" &&
+
+        {pathname !== "/controlpanel" && (
           <nav className={styles.navigation}>
             <SidebarNavLink to="/controlpanel" label="Control Panel" />
           </nav>
-        }
-        
+        )}
+
         <SystemLink to="/controlpanel/system" label="System Configuration" />
       </div>
     </aside>

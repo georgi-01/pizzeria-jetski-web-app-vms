@@ -8,6 +8,8 @@ import { PasswordModule } from './password/password.module';
 import { DatabaseInitializerModule } from './database-initializer/database-initializer.module';
 import * as path from 'path';
 
+import { AdminModule } from './admin/admin.module';
+
 const logDirectory = path.resolve(__dirname, '../../logs');
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -62,6 +64,7 @@ const isProduction = process.env.NODE_ENV === 'production';
     PrismaModule,
     PasswordModule,
     DatabaseInitializerModule,
+    AdminModule,
   ],
 
   controllers: [AppController],
