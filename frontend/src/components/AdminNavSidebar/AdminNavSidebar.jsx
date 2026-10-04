@@ -8,6 +8,8 @@ import SystemLink from "./SystemLink/SystemLink";
 
 import useFetch from "../../hooks/useFetch";
 import { getCategoriesCount } from "../../services/admin/categories.service";
+import { getIngredientsCount } from "../../services/admin/ingredients.service";
+import { getEmployeesCount } from "../../services/admin/employees.service";
 
 function AdminSidebar() {
   const pathname = window.location.pathname;
@@ -17,6 +19,18 @@ function AdminSidebar() {
     loading: categoriesLoading,
     error: categoriesError,
   } = useFetch(getCategoriesCount);
+
+  const {
+        data: ingredientsCount,
+        loading: ingredientsLoading,
+        error: ingredientsError,
+    } = useFetch(getIngredientsCount);
+
+    const {
+        data: employeesCount,
+        loading: employeesLoading,
+        error: employeesError,
+    } = useFetch(getEmployeesCount);
 
   return (
     <aside className={styles.container}>
@@ -31,12 +45,12 @@ function AdminSidebar() {
             label="Categories"
             count={categoriesCount?.count ?? 0}
           />
-          <SidebarNavLink to="/controlpanel/ingredients" label="Ingredients" />
+          <SidebarNavLink to="/controlpanel/ingredients" label="Ingredients" count={ingredientsCount?.count ?? 0} />
           <SidebarNavLink to="/controlpanel/inventory" label="Inventory" />
           <SidebarNavLink to="/controlpanel/menu" label="Menu" />
           <SidebarNavLink to="/controlpanel/orders" label="Orders" />
           <SidebarNavLink to="/controlpanel/promotions" label="Promotions" />
-          <SidebarNavLink to="/controlpanel/employees" label="Employees" />
+          <SidebarNavLink to="/controlpanel/employees" label="Employees" count={employeesCount?.count ?? 0} />
         </nav>
         <SidebarDivider />
 

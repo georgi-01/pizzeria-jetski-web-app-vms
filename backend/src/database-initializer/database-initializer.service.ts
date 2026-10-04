@@ -8,7 +8,7 @@ import {
   SeedFileReaderService,
 } from './seed-file-reader.service';
 
-const CURRENT_SEED_VERSION = 1;
+const CURRENT_SEED_VERSION = 2;
 
 @Injectable()
 export class DatabaseInitializerService implements OnModuleInit {

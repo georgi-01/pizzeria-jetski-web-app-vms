@@ -9,6 +9,9 @@ import { DatabaseInitializerModule } from './database-initializer/database-initi
 import * as path from 'path';
 
 import { AdminModule } from './admin/admin.module';
+import { CategoriesModule } from './categories/categories.module';
+import { EmployeesModule } from './employees/employees.module';
+import { IngredientsModule } from './ingredients/ingredients.module';
 
 const logDirectory = path.resolve(__dirname, '../../logs');
 const isProduction = process.env.NODE_ENV === 'production';
@@ -65,6 +68,9 @@ const isProduction = process.env.NODE_ENV === 'production';
     PasswordModule,
     DatabaseInitializerModule,
     AdminModule,
+    CategoriesModule,
+    EmployeesModule,
+    IngredientsModule,
   ],
 
   controllers: [AppController],
